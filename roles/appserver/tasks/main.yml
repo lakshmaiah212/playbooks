@@ -1,10 +1,26 @@
 - name : creating a user 
   user : 
-    name : student
+    name : {{appuser}}
     state : present 
 
 - name : installing java 
   yum :
     name : java
     state : present 
-    
+
+
+- name : getting tomcat latest version 
+  shell : curl -s http://tomcat.apache.org/ | grep Released | grep "Tomcat [0-9]" | awk '{print $(NF-1)}' | grep ^8
+  register : out 
+
+
+- name : set tomcat facts
+  set_fact :
+    TOMCAT_HOME : "/home/{{appuser}}/apache-tomcat-{{out.stdout}}"
+    app_home : "/home/{{appuser}}"
+
+
+- name : installing tomcat application on student user
+  unarchive : 
+      src : https://archive.apache.org/dist/tomcat/tomcat-8/v{{out.stdout}}/bin/apache-tomcat-{{out.stdout}}.tar.gz
+      dest : 
