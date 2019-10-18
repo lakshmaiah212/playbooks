@@ -1,0 +1,4 @@
+{{%for app in apps %}}:
+ProxyPass "/{{app}}" "http://localhost:8080/{{app}}"
+ProxyPassReverse "/{{app}}"  "http://localhost:8080/{{app}}"
+{{% endfor %}}

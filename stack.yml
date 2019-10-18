@@ -1,0 +1,5 @@
+- name : developing studentapp project
+  hosts : localhost
+  become : yes
+  roles :
+    - webserver

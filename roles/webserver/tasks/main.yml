@@ -1,0 +1,25 @@
+---
+  - name : Installing web application
+    yum :
+      name : httpd
+      state : present 
+
+  - name : copying cofiguration file
+    template:
+      src : playbooks/roles/webserver/template/student.conf.j2
+      dest : /etc/httpd/conf.d/student.conf
+    vars :
+      apps :
+        - student
+  
+  - name :  creating index file
+    get_url:
+      url : https://s3-us-west-2.amazonaws.com/studentapi-cit/index.html
+      dest : /var/www/html/index.html
+    
+
+  - name : restarting service
+    service : 
+      name : httpd
+      state : started
+      enable : yes
