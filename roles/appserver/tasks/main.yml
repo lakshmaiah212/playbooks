@@ -1,0 +1,10 @@
+- name : creating a user 
+  user : 
+    name : student
+    state : present 
+
+- name : installing java 
+  yum :
+    name : java
+    state : present 
+    
