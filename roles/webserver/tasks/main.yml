@@ -6,7 +6,7 @@
 
   - name : copying cofiguration file
     template:
-      src : playbooks/roles/webserver/template/student.conf.j2
+      src : roles/webserver/template/student.conf.j2
       dest : /etc/httpd/conf.d/student.conf
     vars :
       apps :
