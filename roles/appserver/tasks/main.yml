@@ -67,4 +67,45 @@
     path : "{{app_home}}/api"
     state : directory
   become_user : "{{app_user}}"
-  
+
+
+- name : copying db details env file
+  template :
+    src : roles/appserver/template/db-details
+    dest : "{{app_home}}/api/.db-details"
+  become_user : "{{app_user}}"
+
+
+- name : adding a line to import file
+  lineinfile:
+        path : "{{app_home}}/.bash_profile"
+        line : "source {{app_home}}/api/.db-details"
+
+- name : download student war file
+  get_url :
+    url : https://s3-us-west-2.amazonaws.com/studentapi-cit/studentapi.war
+    dest : "{{app_home}}/api/student.war"
+    remote_src : yes 
+
+- name : download studentapi init script 
+  get_url :
+    url : https://s3-us-west-2.amazonaws.com/studentapi-cit/studentapi-init
+    dest : /etc/init.d/studentapi
+    remote_src : yes
+    mode : 0755
+
+
+- name : reload systemctl daemon
+  shell : systemctl daemon-reload 
+
+
+- name : starting student api
+    service :
+      name : studentapi 
+      state : restarted
+      enabled : yes
+
+
+
+
+

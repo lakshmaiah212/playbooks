@@ -11,6 +11,7 @@
     vars :
       apps :
         - student
+        - api
   
   - name :  creating index file
     get_url:
