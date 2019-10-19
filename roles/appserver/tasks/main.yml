@@ -66,10 +66,9 @@
 - name :  starting tomcat server
   service : 
     name  : tomcat
-    state : restarted
+    state : started
     enabled : yes
-  become_user : "{{app_user}}"
-
+ 
 - name : create api directory 
   file :
     path : "{{app_home}}/api"
