@@ -1,0 +1,23 @@
+---
+  - name : updating license key file
+    lineinfile:
+      path : /etc/newrelic-infra.yml
+      line : "license_key:{{LICENSE_KEY}}"
+      create : yes
+
+
+  - name : creating agents yum repository 
+    get_url : 
+      url : https://download.newrelic.com/infrastructure_agent/linux/yum/el/7/x86_64/newrelic-infra.repo
+      dest : /etc/yum.repos.d/newrelic-infra.repo
+      remote_src : yes
+
+
+  - name : update yum cache 
+    shell :  yum -q makecache -y --disablerepo='*' --enablerepo='newrelic-infra'
+
+
+  - name : new-relic infra install 
+    yum : 
+      name : newrelic-infra
+      state : present
