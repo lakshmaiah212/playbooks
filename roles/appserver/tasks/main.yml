@@ -32,6 +32,6 @@
 - name : adding application on student user
   get_url :
     url : https://s3-us-west-2.amazonaws.com/studentapi-cit/student.war
-    dest : "{{app_home}}/webapps/student.war"
+    dest : "{{TOMCAT_HOME}}/webapps/student.war"
     remote_src : yes
   become_user : "{{app_user}}"
