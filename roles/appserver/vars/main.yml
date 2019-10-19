@@ -1,1 +1,9 @@
 app_user : student
+
+DB_USER : 
+
+DB_PASS :
+
+DB_HOST : 
+
+DB_NAME : 

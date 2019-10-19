@@ -39,3 +39,39 @@
 
 - name : starting tomcat server
   shell : "{{TOMCAT_HOME}}/bin/startup.sh"
+
+- name : database connection jar file
+  get_url : 
+    url : https://s3-us-west-2.amazonaws.com/studentapi-cit/mysql-connector.jar
+    dest : "{{TOMCAT_HOME}}/lib/mysql-connector.jar"
+    remote_src : yes
+  become_user : "{{app_user}}"
+
+
+- name : updating context.xml file
+  blockinfile:
+        path : "{{TOMCAT_HOME}}/conf/context.xml"
+        insertbefore : "</Context>"
+        block : |
+            <Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource"
+               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+               username="{{DB_USER}}" password="{{DB_PASS}}" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://{{DB_HOST}}:3306/{{DB_NAME}}"/>
+  become_user : "{{app_user}}"
+
+- name : restarting tomcat server
+  shell : "{{TOMCAT_HOME}}/bin/startup.sh"
+
+
+- name :  starting tomcat server
+  service : 
+    name  : tomcat
+    state : restarted
+    enabled : yes
+  become_user : "{{app_user}}"
+
+- name : create api directory 
+  file :
+    path : "{{app_home}}/api"
+    state : directory
+  become_user : "{{app_user}}"
