@@ -24,4 +24,5 @@
   unarchive : 
       src : https://archive.apache.org/dist/tomcat/tomcat-8/v{{out.stdout}}/bin/apache-tomcat-{{out.stdout}}.tar.gz
       dest : "{{app_home}}"
+      remote_src : yes
   become_user : "{{app_user}}"
