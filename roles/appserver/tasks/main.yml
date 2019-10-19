@@ -62,15 +62,9 @@
 - name : restarting tomcat server
   shell : "{{TOMCAT_HOME}}/bin/startup.sh"
 
-
-- name :  starting tomcat server
-  service : 
-    name  : tomcat
-    state : started
-    enabled : yes
- 
 - name : create api directory 
   file :
     path : "{{app_home}}/api"
     state : directory
   become_user : "{{app_user}}"
+  
