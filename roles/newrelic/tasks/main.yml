@@ -21,3 +21,9 @@
     yum : 
       name : newrelic-infra
       state : present
+
+  - name : enable new-relic software
+    service : 
+      name : newrelic-infra
+      state : started
+      enabled : yes
