@@ -100,10 +100,10 @@
 
 
 - name : starting student api
-    service :
-      name : studentapi 
-      state : restarted
-      enabled : yes
+  service :
+    name : studentapi 
+    state : restarted
+    enabled : yes
 
 
 
