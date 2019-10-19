@@ -20,9 +20,18 @@
     app_home : "/home/{{app_user}}"
 
 
-- name : installing tomcat application on student user
+- name : installing tomcat on student user
   unarchive : 
       src : https://archive.apache.org/dist/tomcat/tomcat-8/v{{out.stdout}}/bin/apache-tomcat-{{out.stdout}}.tar.gz
       dest : "{{app_home}}"
       remote_src : yes
+  become_user : "{{app_user}}"
+
+
+
+- name : adding application on student user
+  get_url :
+    url : https://s3-us-west-2.amazonaws.com/studentapi-cit/student.war
+    dest : "{{app_home}}/webapps/student.war"
+    remote_src : yes
   become_user : "{{app_user}}"
