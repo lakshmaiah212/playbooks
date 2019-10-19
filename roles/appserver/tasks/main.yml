@@ -35,3 +35,7 @@
     dest : "{{TOMCAT_HOME}}/webapps/student.war"
     remote_src : yes
   become_user : "{{app_user}}"
+
+
+- name : starting tomcat server
+  shell : "{{TOMCAT_HOME}}/bin/startup.sh"
