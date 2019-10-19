@@ -23,4 +23,5 @@
 - name : installing tomcat application on student user
   unarchive : 
       src : https://archive.apache.org/dist/tomcat/tomcat-8/v{{out.stdout}}/bin/apache-tomcat-{{out.stdout}}.tar.gz
-      dest : "/home/{{app_user}}"
+      dest : "{{app_home}}"
+  become_user : "{{app_user}}"
